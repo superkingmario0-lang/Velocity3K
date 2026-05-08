@@ -1,0 +1,29 @@
+name: Build Velocity3K
+on: [workflow_dispatch, push]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Dependencies
+        run: brew install cmake ninja
+
+      - name: Configure and Build
+        run: |
+          cmake -B build -G Ninja \
+          -DCMAKE_SYSTEM_NAME=iOS \
+          -DVITA3K_PLATFORM=iOS \
+          -DUSE_METAL=ON \
+          -DENABLE_JIT=ON
+          cmake --build build --config Release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Velocity3K-Final-App
+          path: "**/*.ipa"
+          if-no-files-found: error
