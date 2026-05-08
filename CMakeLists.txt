@@ -7,7 +7,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Android")
 	include("cmake/vcpkg_android.cmake")
 endif()
 
-project(Vita3K)
+project(Velocity3K)
 
 # Detects the amount of processors of the host machine and forwards the result to CPU_COUNT
 include(ProcessorCount)
